@@ -1,0 +1,10 @@
+#centerText {
+    font-size: 54px;
+    color: azure;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30%;
+}
