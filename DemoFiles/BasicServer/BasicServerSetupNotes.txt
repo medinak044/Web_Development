@@ -1,0 +1,11 @@
+Getting started for a basic server:
+1. Create parent folder
+2. Inside the parent folder, create an "index.js" file
+3. "npm init" in the git bash terminal. Keep pressing enter until process is complete
+4. "npm i express" Install express
+5. Setup index.js file
+
+Starting the basic server in the browser:
+- "node index.js" in git bash terminal
+- In browser search bar: "localhost:3000"
+* (Ctrl+c) in git bash terminal to stop server
