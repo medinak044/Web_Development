@@ -14,12 +14,15 @@ const func1 = () => {
 
 const func2 = () => {
     for (let i = 1; i <= 100; i++) {
-        let output;
-        if (i % 3 === 0) output += "FIZZ"; // Concatenate string to a variable
-        if (i % 5 === 0) output += "BUZZ";
+        let output = "";
+        if (i % 3 === 0)
+            output += "FIZZ"; // Concatenate string to a variable
+        if (i % 5 === 0)
+            output += "BUZZ";
 
-        if (output === "") output = i; // Check for empty string value
+        if (output === "")
+            output = i; // Check for empty string value
 
-        console.log(output); // Outputs either number or string
+        console.log(output || i); // Outputs either string or current index number
     }
 }
