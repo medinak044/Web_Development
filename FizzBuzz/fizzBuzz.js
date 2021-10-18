@@ -13,8 +13,8 @@ const func1 = () => {
 }
 
 const func2 = () => {
-    let output;
-    for (let i = 0; i < array.length; i++) {
+    for (let i = 1; i <= 100; i++) {
+        let output;
         if (i % 3 === 0) output += "FIZZ"; // Concatenate string to a variable
         if (i % 5 === 0) output += "BUZZ";
 
