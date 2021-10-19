@@ -1,5 +1,8 @@
+let numStart = 1;
+let numEnd = 100;
+
 const func1 = () => {
-    for (let i = 1; i <= 100; i++) {
+    for (let i = numStart; i <= numEnd; i++) {
         if (i % 3 === 0 && i % 5 === 0) {
             console.log("FIZZBUZZ");
         } else if (i % 3 === 0) {
@@ -13,16 +16,15 @@ const func1 = () => {
 }
 
 const func2 = () => {
-    for (let i = 1; i <= 100; i++) {
+    for (let i = numStart; i <= numEnd; i++) {
         let output = "";
-        if (i % 3 === 0)
-            output += "FIZZ"; // Concatenate string to a variable
-        if (i % 5 === 0)
-            output += "BUZZ";
+        if (i % 3 === 0) output += "FIZZ"; // Concatenate string to a variable
+        if (i % 5 === 0) output += "BUZZ";
 
-        if (output === "")
-            output = i; // Check for empty string value
+        if (output === "") output = i; // Check for empty string value
 
         console.log(output || i); // Outputs either string or current index number
     }
 }
+
+func2();
