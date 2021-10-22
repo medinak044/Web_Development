@@ -27,4 +27,23 @@ const func2 = () => {
     }
 }
 
-func2();
+(() => {
+    const iterations = 100;
+    let timeValues = [];
+
+    for (let i = 0; i < iterations; i++) {
+        console.time("Time");
+        func1();
+        // Need to extract only string numbers from console.time() (2.24124 ms)
+        timeValues.push(parseFloat(Math.floor(console.timeEnd("Time"))));
+    }
+    let mean = (() => {
+        let sum = 0.0;
+        for (let i = 0; i < timeValues.length; i++) {
+            sum += timeValues[i];
+        }
+        console.log(timeValues);
+        return sum / parseFloat(timeValues.length);
+    })(); // IIFE
+    console.log(`Average time: ${mean}`);
+})(); // IIFE
