@@ -1,7 +1,7 @@
 class Main_01 { // private class for practice only
     public static void main(String[] args) {
 
-        int num1 = 5;
+        // int num1 = 5;
         char character1 = 'A';
         String firstName = "Kyle";
         String secondName = "Medina";
