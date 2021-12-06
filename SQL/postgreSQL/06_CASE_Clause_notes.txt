@@ -1,3 +1,7 @@
+- 'CASE', 'WHEN', 'THEN', 'ELSE', 'END'
+- Remember to label the resulting table in the FROM clause ('a' for example)
+_____
+
 SELECT 
 	SUM(CASE WHEN salary < 100000 THEN 1 ELSE 0 END) AS under_paid,
 	SUM(CASE WHEN salary > 100000 AND salary < 150000 THEN 1 ELSE 0 END) AS paid_well,
@@ -27,13 +31,4 @@ FROM
 	(SELECT name, SUM(supply) AS total_supply
 	FROM fruit_imports
 	GROUP BY name) a
-
-SELECT * FROM fruit_imports
-
-
-
-
-
-
-
-
+    
