@@ -57,3 +57,10 @@ SELECT DISTINCT e.department, d.department
 FROM employees e FULL OUTER JOIN departments d 
 ON e.department = d.department
 WHERE e.department IS NULL OR d.department IS NULL
+
+----------------
+-- Using 'Union' 
+-- The query below combines the two tables' department columns into one column containing only unique values
+SELECT DISTINCT department FROM employees
+UNION
+SELECT department FROM departments5
