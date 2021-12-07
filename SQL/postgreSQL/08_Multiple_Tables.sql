@@ -59,8 +59,22 @@ ON e.department = d.department
 WHERE e.department IS NULL OR d.department IS NULL
 
 ----------------
--- Using 'Union' 
+-- Using 'Union'. Will automatically exclude duplicate data
 -- The query below combines the two tables' department columns into one column containing only unique values
-SELECT DISTINCT department FROM employees
+SELECT department FROM employees
 UNION
-SELECT department FROM departments5
+SELECT department FROM departments
+-- 'UNION ALL' Will include duplicate data in the same column
+-- Using DISTINCT will reduce the departments from employees table, then UNION ALL will stack all that data with data from the departments table
+SELECT DISTINCT department FROM employees
+UNION ALL
+SELECT department FROM departments
+-- I wanted 'TOTAL' to appear as the last row, but all rows above it must be ordered alphabetically
+SELECT a.department, a.amount
+FROM (SELECT DISTINCT department, COUNT(*) AS amount
+	FROM employees 
+	GROUP BY department
+	ORDER BY department) a
+UNION ALL
+SELECT 'TOTAL', COUNT(*) AS amount
+FROM employees
