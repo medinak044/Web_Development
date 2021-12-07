@@ -69,12 +69,16 @@ SELECT department FROM departments
 SELECT DISTINCT department FROM employees
 UNION ALL
 SELECT department FROM departments
--- I wanted 'TOTAL' to appear as the last row, but all rows above it must be ordered alphabetically
+-- I wanted 'TOTAL' to appear in the last row, but all rows above it must be ordered alphabetically
 SELECT a.department, a.amount
 FROM (SELECT DISTINCT department, COUNT(*) AS amount
 	FROM employees 
 	GROUP BY department
-	ORDER BY department) a
-UNION ALL
+	ORDER BY department) a -- Create a custom table first, then sorted it by department name
+UNION ALL -- Then add new data starting from the bottom row
 SELECT 'TOTAL', COUNT(*) AS amount
 FROM employees
+-- "Cartesian Product", multiplies rows from 1st by amount of rows from 2nd table 
+SELECT * 
+FROM employees, departments
+--'CROSS JOIN'
