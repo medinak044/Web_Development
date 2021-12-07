@@ -31,3 +31,29 @@ GROUP BY r.country
 ORDER BY total_employees DESC;
 
 ----------------
+-- Using 'JOIN'
+SELECT first_name, country
+FROM employees e INNER JOIN regions r
+ON e.region_id = r.region_id
+-- There are 27 departments in the employees table, and 24 departments in the departments table
+-- INNER JOIN will display all matching departments that show in both tables
+-- (FROM employees LEFT JOIN departments) will expose departments that departments table doesn't contain as NULL values
+-- (FROM employees RIGHT JOIN departments) will expose departments that employees table doesn't contain as NULL values
+-- FULL OUTER JOIN will show a full comparison of departments that each table has/doesn't have from each other
+SELECT DISTINCT e.department, d.department 
+FROM employees e RIGHT JOIN departments d 
+ON e.department = d.department
+-- Below is a solution to display only departments that are missing from the department table
+SELECT DISTINCT e.department, d.department
+FROM employees e LEFT JOIN departments d 
+ON e.department = d.department
+WHERE d.department IS NULL
+-- FULL OUTER JOIN/ FULL JOIN example below:
+SELECT DISTINCT e.department, d.department
+FROM employees e FULL OUTER JOIN departments d 
+ON e.department = d.department
+-- Modified example from above to only display departments that are missing from each other (NULL)
+SELECT DISTINCT e.department, d.department
+FROM employees e FULL OUTER JOIN departments d 
+ON e.department = d.department
+WHERE e.department IS NULL OR d.department IS NULL
