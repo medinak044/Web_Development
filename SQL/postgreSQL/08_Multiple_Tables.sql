@@ -82,3 +82,19 @@ FROM employees
 SELECT * 
 FROM employees, departments
 --'CROSS JOIN'
+SELECT * 
+FROM employees e CROSS JOIN departments d
+----------------
+--Will
+(SELECT first_name, department, hire_date, country
+FROM employees e INNER JOIN regions r
+ON e.region_id = r.region_id
+WHERE hire_date IN (SELECT MIN(hire_date) AS hire_date FROM employees e2)
+ORDER BY hire_date
+LIMIT 1)
+UNION
+(SELECT first_name, department, hire_date, country
+FROM employees e INNER JOIN regions r
+ON e.region_id = r.region_id
+WHERE hire_date IN (SELECT MAX(hire_date) AS hire_date FROM employees e2))
+ORDER BY hire_date

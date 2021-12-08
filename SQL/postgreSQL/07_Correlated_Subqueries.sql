@@ -48,3 +48,9 @@ WHERE salary IN (max_by_department, min_by_department)
 ORDER BY department ASC, salary DESC;
 
 ----------------
+-- ('Moving Range') Display spending pattern within 90 day intervals
+SELECT hire_date, salary,
+(SELECT SUM(salary) FROM employees e2
+ WHERE e2.hire_date BETWEEN e.hire_date - 90 AND e.hire_date) AS spending_pattern
+FROM employees e
+ORDER BY hire_date
