@@ -98,3 +98,14 @@ FROM employees e INNER JOIN regions r
 ON e.region_id = r.region_id
 WHERE hire_date IN (SELECT MAX(hire_date) AS hire_date FROM employees e2))
 ORDER BY hire_date
+----------------
+-- 
+SELECT student_name, se.course_no, p.last_name
+FROM students s
+INNER JOIN student_enrollment se
+    ON s.student_no = se.student_no
+INNER JOIN teach t
+    ON se.course_no = t.course_no
+INNER JOIN professors p
+    ON t.last_name = p.last_name
+ORDER BY student_name;
