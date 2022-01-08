@@ -12,6 +12,38 @@ const { todoArray } = require("./fakeData");
 
 app.use(express.static("../client"));
 
+
+
+
+
+// Template for item
+const item = {
+
+}
+
+// Schema:
+const overseeSchema = mongoose.Schema({
+  firstName: {
+    type: String,
+    required: [true, `First name is required`]
+  },
+  lastName: {
+    type: String,
+    required: [true, `Last name is required`]
+  },
+  email: {
+    type: String,
+    required: [true, `An email address is required`]
+  },
+  userInventory: [{
+
+  }]
+})
+
+
+
+
+
 // 1) Build our connection
 //  a) install Mongoose
 const mongoose = require(`mongoose`);
@@ -59,7 +91,6 @@ app.get("/todos", (req, res) => {
 });
 
 // Create - POST
-// let newId = 4;
 app.post("/todos", (req, res) => {
   // add a new todo to our list
   let newTodo = new ToDoModel({
@@ -114,14 +145,6 @@ app.put("/todos/:id", (req, res) => {
       })
     }
   })
-
-
-  // if (requestedTodo) {
-  //   requestedTodo.isComplete = !requestedTodo.isComplete;
-  //   res.status(200).json(requestedTodo);
-  // } else {
-  //   res.status(404).json({ message: "Id does not exist in database" });
-  // }
 });
 
 const PORT = process.env.PORT || 3000;
