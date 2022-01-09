@@ -49,7 +49,7 @@ const userSchema = mongoose.Schema({
 })
 
 // Model
-let ToDoModel = mongoose.model("todos", todoSchema) // "CharacterModel" is a class
+let UserModel = mongoose.model(`users`, userSchema) // "UserModel" is a class
 
 
 app.get("/", (req, res) => {
