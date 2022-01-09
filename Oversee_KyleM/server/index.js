@@ -14,36 +14,6 @@ app.use(express.static("../client"));
 
 
 
-
-
-// Template for item
-const item = {
-
-}
-
-// Schema:
-const overseeSchema = mongoose.Schema({
-  firstName: {
-    type: String,
-    required: [true, `First name is required`]
-  },
-  lastName: {
-    type: String,
-    required: [true, `Last name is required`]
-  },
-  email: {
-    type: String,
-    required: [true, `An email address is required`]
-  },
-  userInventory: [{
-
-  }]
-})
-
-
-
-
-
 // 1) Build our connection
 //  a) install Mongoose
 const mongoose = require(`mongoose`);
@@ -54,16 +24,30 @@ mongoose.connect(keys.mongoURI)
   .catch((error) => console.log(`Issues connecting`, error));
 
 // 2) Build blueprints
-//  a) Schema
-//  b) Model
-const todoSchema = mongoose.Schema({
-  // id: Number,
-  description: String,
-  isComplete: {
-    type: Boolean,
-    default: false
-  }
+// Template for item(Object) to be stored in userInventory
+const item = {
+  name: ``,
+  description: ``,
+  imageLink: ``
+}
+// Schema:
+const userSchema = mongoose.Schema({
+  firstName: {
+    type: String,
+    required: [true, `First name is required`]
+  },
+  lastName: {
+    type: String,
+    required: [true, `Last name is required`]
+  },
+  phoneNumber: String,
+  email: {
+    type: String,
+    required: [true, `An email address is required`]
+  },
+  userInventory: []
 })
+
 // Model
 let ToDoModel = mongoose.model("todos", todoSchema) // "CharacterModel" is a class
 
