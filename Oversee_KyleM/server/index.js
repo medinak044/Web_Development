@@ -30,7 +30,7 @@ const item = {
   description: ``,
   imageLink: ``
 }
-// Schema:
+// Schema: 
 const userSchema = mongoose.Schema({
   firstName: {
     type: String,
