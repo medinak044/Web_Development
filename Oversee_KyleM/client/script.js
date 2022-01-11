@@ -2,7 +2,7 @@ const baseUrl = "http://localhost:3000";
 
 // How to READ our data
 $(document).ready(function () {
-  let route = "todos";
+  let route = "users";
   let endpoint = `${baseUrl}/${route}`;
   fetch(endpoint)
     .then(function (response) {
@@ -11,11 +11,11 @@ $(document).ready(function () {
     })
     .then(function (dataArray) {
       $("ul").empty();
-      dataArray.forEach(function (todo) {
-        let completed = todo.isComplete ? "completed" : "";
+      dataArray.forEach(function (user) {
+        let online = user.isOnline ? "online" : "";
         $("ul").append(
-          `<li data-id=${todo._id} class=${completed}>
-            ${todo.description}
+          `<li data-id=${user._id} class=${online}>
+            ${user.userName}
             <span><i class='far fa-trash-alt'></i></span>
           </li>`
         );
@@ -29,24 +29,24 @@ $(document).ready(function () {
 // CREATE
 $("input").keypress(function (event) {
   if (event.which === 13 && $(this).val() !== "") {
-    let newTodoItem = {
-      description: $(this).val(),
+    let newUserItem = {
+      userName: $(this).val(),
     };
-    let endpoint = `${baseUrl}/todos`;
+    let endpoint = `${baseUrl}/users`;
     fetch(endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(newTodoItem),
+      body: JSON.stringify(newUserItem),
     })
       .then(function (response) {
         if (!response.ok) throw Error("No response creating data");
         else return response.json();
       })
-      .then(function (newTodo) {
+      .then(function (newUser) {
         $("ul").append(
-          `<li data-id=${newTodo._id}>${newTodo.description}<span><i class='far fa-trash-alt'></i></span></li>`
+          `<li data-id=${newUser._id}>${newUser.userName}<span><i class='far fa-trash-alt'></i></span></li>`
         );
         $("input").val("");
       })
@@ -61,7 +61,7 @@ $("input").keypress(function (event) {
 // UPDATE
 $("ul").on("click", "li", function () {
   let thisId = $(this).data("id");
-  let endpoint = `${baseUrl}/todos/${thisId}`
+  let endpoint = `${baseUrl}/users/${thisId}`
   let self = this;
   fetch(endpoint, { method: "PUT" })
     .then(function (response) {
@@ -73,10 +73,10 @@ $("ul").on("click", "li", function () {
     })
     .then(function (data) {
       console.log(data)
-      $(self).toggleClass("completed");
+      $(self).toggleClass("online");
     })
     .catch(function (error) {
-      console.error("Errore updating todo on front end: ", error)
+      console.error("Error updating user on front end: ", error)
     })
 
 });
@@ -87,7 +87,7 @@ $("ul").on("click", "li", function () {
 $("ul").on("click", "span", function (event) {
   event.stopPropagation(); // needed to stop bubbling
   let thisId = $(this).parent().data("id");
-  let endpoint = `${baseUrl}/todos/${thisId}`
+  let endpoint = `${baseUrl}/users/${thisId}`
   let self = this;
   fetch(endpoint, { method: "DELETE" })
     .then(function (response) {

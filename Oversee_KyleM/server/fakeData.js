@@ -18,24 +18,30 @@ exports.todoArray = [
 // Dummy data
 exports.userArray = [
   {
-    firstName: "UserA",
-    lastName: "A",
+    userName: "UserA",
+    firstName: "A_First",
+    lastName: "A_Last",
     phoneNumber: 1234567891,
     email: "userA@examplemail.com",
-    userInventory: []
+    userInventory: [],
+    isOnline: false
   },
   {
-    firstName: "UserB",
-    lastName: "B",
+    userName: "UserB",
+    firstName: "B_First",
+    lastName: "B_Last",
     phoneNumber: 1234567892,
     email: "userB@examplemail.com",
-    userInventory: []
+    userInventory: [],
+    isOnline: false
   },
   {
-    firstName: UserC,
-    lastName: C,
+    userName: "UserC",
+    firstName: "C_First",
+    lastName: "C_Last",
     phoneNumber: 1234567893,
     email: "userC@examplemail.com",
-    userInventory: []
+    userInventory: [],
+    isOnline: false
   }
 ]

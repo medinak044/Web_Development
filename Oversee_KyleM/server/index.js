@@ -26,20 +26,25 @@ mongoose.connect(keys.mongoURI)
 // 2) Build blueprints
 // Schema: 
 const userSchema = mongoose.Schema({
-  firstName: {
+  userName: {
     type: String,
-    required: [true, `First name is required`]
+    required: [true, `Username is required`]
+  },
+  firstName: {
+    type: String
+    // required: [true, `First name is required`]
   },
   lastName: {
-    type: String,
-    required: [true, `Last name is required`]
+    type: String
+    // required: [true, `Last name is required`]
   },
-  phoneNumber: String,
+  phoneNumber: Number,
   email: {
-    type: String,
-    required: [true, `An email address is required`]
+    type: String
+    // required: [true, `An email address is required`]
   },
-  userInventory: []
+  userInventory: [],
+  isOnline: Boolean
 })
 
 // Template for item(Object) to be stored in "userInventory"
@@ -79,7 +84,7 @@ app.get("/users", (req, res) => {
 app.post("/users", (req, res) => {
   // add a new user to our list
   let newUser = new UserModel({
-    description: req.body.description
+    userName: req.body.userName
   });
 
   newUser.save((err, result) => {
@@ -117,7 +122,7 @@ app.put("/users/:id", (req, res) => {
       console.log(`Error: ${err}`) // Tells devs
       res.status(404).json(`error reading from db: ${err}`) // Tells clients
     } else {
-      result.isComplete = !result.isComplete;
+      result.isOnline = !result.isOnline;
       result.save((err2, updatedUser) => {
         if (err2) {
           console.log(`Error updating document`)
