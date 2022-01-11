@@ -58,7 +58,7 @@ app.get("/", (req, res) => {
 });
 
 // Read - GET
-app.get("/todos", (req, res) => {
+app.get("/users", (req, res) => {
   // Write queries
   UserModel.find({}, (err, resultsArr) => {
     if (err) {
@@ -76,7 +76,7 @@ app.get("/todos", (req, res) => {
 });
 
 // Create - POST
-app.post("/todos", (req, res) => {
+app.post("/users", (req, res) => {
   // add a new user to our list
   let newUser = new UserModel({
     description: req.body.description
@@ -94,7 +94,7 @@ app.post("/todos", (req, res) => {
 });
 
 // Delete - DELETE
-app.delete("/todos/:id", (req, res) => {
+app.delete("/users/:id", (req, res) => {
   let requestedId = req.params.id; // The id will be a string from Mongo
 
   UserModel.findByIdAndDelete(requestedId, (err, result) => {
@@ -109,7 +109,7 @@ app.delete("/todos/:id", (req, res) => {
 });
 
 // Update - PUT
-app.put("/todos/:id", (req, res) => {
+app.put("/users/:id", (req, res) => {
   let requestedId = req.params.id;
 
   UserModel.findById(requestedId, (err, result) => {
@@ -118,13 +118,13 @@ app.put("/todos/:id", (req, res) => {
       res.status(404).json(`error reading from db: ${err}`) // Tells clients
     } else {
       result.isComplete = !result.isComplete;
-      result.save((err2, updatedTodo) => {
+      result.save((err2, updatedUser) => {
         if (err2) {
           console.log(`Error updating document`)
           res.status(400).json(`error reading from db: ${err2}`) // Tells clients
         } else {
-          console.log(updatedTodo)
-          res.status(200).json(updatedTodo);
+          console.log(updatedUser)
+          res.status(200).json(updatedUser);
         }
       })
     }
