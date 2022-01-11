@@ -8,7 +8,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const { todoArray } = require("./fakeData");
+const { userArray } = require("./fakeData");
 
 app.use(express.static("../client"));
 
@@ -24,12 +24,6 @@ mongoose.connect(keys.mongoURI)
   .catch((error) => console.log(`Issues connecting`, error));
 
 // 2) Build blueprints
-// Template for item(Object) to be stored in userInventory
-const item = {
-  name: ``,
-  description: ``,
-  imageLink: ``
-}
 // Schema: 
 const userSchema = mongoose.Schema({
   firstName: {
@@ -48,6 +42,13 @@ const userSchema = mongoose.Schema({
   userInventory: []
 })
 
+// Template for item(Object) to be stored in "userInventory"
+const item = {
+  name: ``,
+  description: ``,
+  imageLink: ``
+}
+
 // Model
 let UserModel = mongoose.model(`users`, userSchema) // "UserModel" is a class
 
@@ -59,16 +60,16 @@ app.get("/", (req, res) => {
 // Read - GET
 app.get("/todos", (req, res) => {
   // Write queries
-  ToDoModel.find({}, (err, resultsArr) => {
+  UserModel.find({}, (err, resultsArr) => {
     if (err) {
       console.log(`error reading from db: ${err}`) // Tells developers
       res.status(404).json(`error reading from db: ${err}`) // Tells clients
     } else {
-      // display todos
+      // display users
       if (resultsArr.length > 0) {
         res.status(200).json(resultsArr);
       } else {
-        res.status(200).json({ message: "You ain't got no todos!!" });
+        res.status(200).json({ message: "You ain't got no users!!" });
       }
     }
   })
@@ -76,13 +77,12 @@ app.get("/todos", (req, res) => {
 
 // Create - POST
 app.post("/todos", (req, res) => {
-  // add a new todo to our list
-  let newTodo = new ToDoModel({
+  // add a new user to our list
+  let newUser = new UserModel({
     description: req.body.description
-    // isComplete will be false by default
   });
 
-  newTodo.save((err, result) => {
+  newUser.save((err, result) => {
     if (err) {
       console.log(`Error: ${err}`)
       res.status(404).json(`error reading from db: ${err}`) // Tells clients
@@ -97,7 +97,7 @@ app.post("/todos", (req, res) => {
 app.delete("/todos/:id", (req, res) => {
   let requestedId = req.params.id; // The id will be a string from Mongo
 
-  ToDoModel.findByIdAndDelete(requestedId, (err, result) => {
+  UserModel.findByIdAndDelete(requestedId, (err, result) => {
     if (err) {
       console.log(`Error: ${err}`)
       res.status(404).json(`error reading from db: ${err}`) // Tells clients
@@ -112,7 +112,7 @@ app.delete("/todos/:id", (req, res) => {
 app.put("/todos/:id", (req, res) => {
   let requestedId = req.params.id;
 
-  ToDoModel.findById(requestedId, (err, result) => {
+  UserModel.findById(requestedId, (err, result) => {
     if (err) {
       console.log(`Error: ${err}`) // Tells devs
       res.status(404).json(`error reading from db: ${err}`) // Tells clients
