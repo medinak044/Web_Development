@@ -13,7 +13,6 @@ const { userArray } = require("./fakeData");
 app.use(express.static("../client"));
 
 
-
 // 1) Build our connection
 //  a) install Mongoose
 const mongoose = require(`mongoose`);
