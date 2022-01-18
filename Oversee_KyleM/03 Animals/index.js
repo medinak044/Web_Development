@@ -7,7 +7,7 @@ app.set(`view engine`, `ejs`); // When viewing a file, must be an ejs file
 // ^ Makes it so you don't have to type .ejs for render
 
 app.get(`/`, (req, res) => {
-    res.send(`Root route`);
+    res.redirect(`/demo2`);
 });
 
 // app.get(`/:animals`, (req, res) => {
@@ -36,11 +36,11 @@ const usersArr = [{ "id": 1, "first_name": "Mignonne", "last_name": "Ellis", "em
 { "id": 19, "first_name": "Merilee", "last_name": "Tarbert", "email": "mtarberti@infoseek.co.jp", "user_name": "mtarberti" },
 { "id": 20, "first_name": "Vito", "last_name": "Mapledorum", "email": "vmapledorumj@imdb.com", "user_name": "vmapledorumj" }]
 
-const itemsArr = [{ "Item ": "Veal - Knuckle" },
-{ "Item ": "Turkey Leg With Drum And Thigh" },
-{ "Item ": "Soho Lychee Liqueur" },
-{ "Item ": "Beef - Eye Of Round" },
-{ "Item ": "Sprouts Dikon" }]
+const itemsArr = [{ "Item": "Veal - Knuckle" },
+{ "Item": "Turkey Leg With Drum And Thigh" },
+{ "Item": "Soho Lychee Liqueur" },
+{ "Item": "Beef - Eye Of Round" },
+{ "Item": "Sprouts Dikon" }]
 
 app.get(`/profilepage`, (req, res) => {
     let { dog, cat } = req.params;
@@ -68,7 +68,11 @@ app.get(`/demo2`, (req, res) => {
             name: 'Tweety'
         }
     ]
-    res.render(`demo2`, { data: animals });
+    // Generate random inventory for each user
+    let min = 0; let max = 10;
+    let randomNum = ((min, max) => Math.random() * (max - min) + min)(); // IIFE generates random number between the range on the spot
+
+    res.render(`demo2`, { userData: usersArr });
 });
 
 app.get(`/:dog/:cat`, (req, res) => {
