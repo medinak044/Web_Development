@@ -50,6 +50,8 @@ app.get("/home", (req, res) => {
 })
 
 app.get("/profilepage", isLoggedIn, (req, res) => {
+    // Write query to get all users from DB
+
     res.render(`profilepage.ejs`)
 })
 
