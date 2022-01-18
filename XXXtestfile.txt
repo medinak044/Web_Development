@@ -1,1 +1,9 @@
 Commit this change to a separate branch.
+
+git branch
+    - Checks available branches
+git branch (new branch name)
+    - Creates new branch
+git checkout (branch name)
+    - Switches to existing branch
+
