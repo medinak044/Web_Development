@@ -49,8 +49,8 @@ app.get("/home", (req, res) => {
     res.render("home.ejs")
 })
 
-app.get("/newsfeed", isLoggedIn, (req, res) => {
-    res.render(`newsfeed.ejs`)
+app.get("/profilepage", isLoggedIn, (req, res) => {
+    res.render(`profilepage.ejs`)
 })
 
 app.get("/signup", (req, res) => {
@@ -64,7 +64,7 @@ app.get("/login", (req, res) => {
 
 app.post('/login', passport.authenticate('local',
     {
-        successRedirect: '/newsfeed',
+        successRedirect: '/profilepage',
         failureRedirect: '/login'
     }), (req, res) => { }); // We don’t need anything in our callback function
 
@@ -78,14 +78,14 @@ app.get("*", (req, res) => {
 })
 
 app.post("/signup", (req, res) => {
-    var newUser = new userModel({ username: req.body.username });
+    let newUser = new userModel({ username: req.body.username });
     userModel.register(newUser, req.body.password, (err, user) => {
         if (err) {
             console.log(err);
             return res.render("signup.ejs")
         } else {
             passport.authenticate("local")(req, res, () => {
-                res.redirect("/newsfeed");
+                res.redirect("/profilepage");
             });
         }
     })
