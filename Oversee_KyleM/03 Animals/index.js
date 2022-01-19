@@ -138,8 +138,7 @@ app.get(`/home`, (req, res) => {
 
 
 app.get(`/profile`, (req, res) => {
-    let { dog, cat } = req.params;
-    res.render(`profile`, { dog, cat });
+    res.render(`profile`, {});
 });
 
 app.get(`/users`, (req, res) => {
