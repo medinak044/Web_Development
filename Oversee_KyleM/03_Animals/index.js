@@ -6,7 +6,7 @@ app.use(logger(`dev`));
 app.set(`view engine`, `ejs`); // When viewing a file, must be an ejs file
 // ^ Makes it so you don't have to type .ejs for render
 
-const usersArr = [{ "id": 1, "first_name": "Mignonne", "last_name": "Ellis", "email": "mellis0@tuttocitta.it", "user_name": "mellis0" },
+const fakeUsersArr = [{ "id": 1, "first_name": "Mignonne", "last_name": "Ellis", "email": "mellis0@tuttocitta.it", "user_name": "mellis0" },
 { "id": 2, "first_name": "Willyt", "last_name": "Antyukhin", "email": "wantyukhin1@about.com", "user_name": "wantyukhin1" },
 { "id": 3, "first_name": "Giusto", "last_name": "Bidwell", "email": "gbidwell2@netvibes.com", "user_name": "gbidwell2" },
 { "id": 4, "first_name": "Bethina", "last_name": "Dullaghan", "email": "bdullaghan3@bloomberg.com", "user_name": "bdullaghan3" },
@@ -27,7 +27,7 @@ const usersArr = [{ "id": 1, "first_name": "Mignonne", "last_name": "Ellis", "em
 { "id": 19, "first_name": "Merilee", "last_name": "Tarbert", "email": "mtarberti@infoseek.co.jp", "user_name": "mtarberti" },
 { "id": 20, "first_name": "Vito", "last_name": "Mapledorum", "email": "vmapledorumj@imdb.com", "user_name": "vmapledorumj" }]
 
-const itemsArr = [{ "Item": "Veal - Knuckle" },
+const fakeItemsArr = [{ "Item": "Veal - Knuckle" },
 { "Item": "Turkey Leg With Drum And Thigh" },
 { "Item": "Soho Lychee Liqueur" },
 { "Item": "Beef - Eye Of Round" },
@@ -128,6 +128,21 @@ const itemsArr = [{ "Item": "Veal - Knuckle" },
 { "Item": "Brownies - Two Bite, Chocolate" },
 { "Item": "Muffin - Mix - Mango Sour Cherry" }]
 
+
+// 1. Make a connection
+const mongoose = require(`mongoose`)
+const keys = require(`./config/keys`); // Access keys file so we can use our key
+
+// Connect to our database
+// When using older Mongoose, must pass the 2nd argument options
+mongoose.connect(keys.mongoURI,
+    {
+        useNewUrlParser: true,
+        useUnifiedTopology: true
+    })
+    .then(() => console.log(`Connected!`))
+    .catch(error => console.log(`Issues connecting`, error))
+
 app.get(`/`, (req, res) => {
     res.redirect(`/home`);
 });
@@ -143,26 +158,29 @@ app.get(`/profile`, (req, res) => {
 
 app.get(`/users`, (req, res) => {
     // Generate random inventory for each user
-    const createRandomInventory = () => {
+    const usersArr = fakeUsersArr;
+    const itemsArr = fakeItemsArr;
+
+    const createRandomInventory = (uArr, iArr) => {
         let min = 0; let max = 5;
         let resultArr = [];
 
-        for (let i = 0; i < usersArr.length; i++) {
+        for (let i = 0; i < uArr.length; i++) {
             let newInvArr = []; // Each inventory array is it's own list element of the parent array
             let invAmt = (() => Math.floor(Math.random() * (max - min) + min))(); // This IIFE produces a random integer
 
             // Pick random items from the items array
             for (let j = 0; j < invAmt; j++) {
                 // Insert x amount of random items into array
-                let randomItemId = (() => Math.floor(Math.random() * (itemsArr.length - 0) + 0))();
-                newInvArr.push(itemsArr[randomItemId]);
+                let randomItemId = (() => Math.floor(Math.random() * (iArr.length - 0) + 0))();
+                newInvArr.push(iArr[randomItemId]);
             }
             resultArr.push(newInvArr);
         }
         return resultArr;
     }
 
-    res.render(`users`, { userData: usersArr, userInventory: createRandomInventory() });
+    res.render(`users`, { userData: usersArr, userInventory: createRandomInventory(usersArr, itemsArr) });
 });
 
 app.get(`/:dog/:cat`, (req, res) => {
@@ -184,6 +202,12 @@ app.get(`/:dog/:cat`, (req, res) => {
 app.get(`*`, (req, res) => {
     res.send(`404 error, page not found!`);
 });
+
+// Query for finding records MongoDB database
+// CharacterModel.find({}, (err, characters) => {
+//     if (err) { console.log(`error: ${err}`) }
+//     else { console.log(characters) }
+// })
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`App running on port ${port}`));
