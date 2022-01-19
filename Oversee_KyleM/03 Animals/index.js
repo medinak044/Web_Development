@@ -6,15 +6,6 @@ app.use(logger(`dev`));
 app.set(`view engine`, `ejs`); // When viewing a file, must be an ejs file
 // ^ Makes it so you don't have to type .ejs for render
 
-app.get(`/`, (req, res) => {
-    res.redirect(`/demo2`);
-});
-
-// app.get(`/:animals`, (req, res) => {
-//     // let data = req.params.animals;
-//     res.render(`animals`, { animals: req.params.animals });
-// });
-
 const usersArr = [{ "id": 1, "first_name": "Mignonne", "last_name": "Ellis", "email": "mellis0@tuttocitta.it", "user_name": "mellis0" },
 { "id": 2, "first_name": "Willyt", "last_name": "Antyukhin", "email": "wantyukhin1@about.com", "user_name": "wantyukhin1" },
 { "id": 3, "first_name": "Giusto", "last_name": "Bidwell", "email": "gbidwell2@netvibes.com", "user_name": "gbidwell2" },
@@ -40,39 +31,139 @@ const itemsArr = [{ "Item": "Veal - Knuckle" },
 { "Item": "Turkey Leg With Drum And Thigh" },
 { "Item": "Soho Lychee Liqueur" },
 { "Item": "Beef - Eye Of Round" },
-{ "Item": "Sprouts Dikon" }]
+{ "Item": "Sprouts Dikon" },
+{ "Item": "Shrimp - Black Tiger 16/20" },
+{ "Item": "Kiwano" },
+{ "Item": "Bread Base - Italian" },
+{ "Item": "Peppercorns - Green" },
+{ "Item": "Onions - Cooking" },
+{ "Item": "Wine - Blue Nun Qualitatswein" },
+{ "Item": "Wine - Wyndham Estate Bin 777" },
+{ "Item": "Butter Sweet" },
+{ "Item": "Sole - Fillet" },
+{ "Item": "Oil - Olive" },
+{ "Item": "Lamb Rack Frenched Australian" },
+{ "Item": "Beans - Black Bean, Preserved" },
+{ "Item": "Ecolab - Mikroklene 4/4 L" },
+{ "Item": "Icecream Bar - Del Monte" },
+{ "Item": "Pastry - Chocolate Chip Muffin" },
+{ "Item": "Appetizer - Mini Egg Roll, Shrimp" },
+{ "Item": "Squid Ink" },
+{ "Item": "Bread Crumbs - Panko" },
+{ "Item": "Lamb - Pieces, Diced" },
+{ "Item": "Garlic - Primerba, Paste" },
+{ "Item": "Veal - Shank, Pieces" },
+{ "Item": "Paper - Brown Paper Mini Cups" },
+{ "Item": "Wine - Crozes Hermitage E." },
+{ "Item": "Sugar - Brown, Individual" },
+{ "Item": "Oil - Margarine" },
+{ "Item": "Extract Vanilla Pure" },
+{ "Item": "Soup - Campbells, Creamy" },
+{ "Item": "Loaf Pan - 2 Lb, Foil" },
+{ "Item": "Tea - Herbal Sweet Dreams" },
+{ "Item": "Table Cloth 62x114 Colour" },
+{ "Item": "Muffin Batt - Choc Chk" },
+{ "Item": "Carbonated Water - Strawberry" },
+{ "Item": "Container - Hngd Cll Blk 7x7x3" },
+{ "Item": "Juice - Orange, 341 Ml" },
+{ "Item": "Flavouring - Raspberry" },
+{ "Item": "Pie Pecan" },
+{ "Item": "Compound - Orange" },
+{ "Item": "Wine - Sauvignon Blanc" },
+{ "Item": "Sugar - Brown" },
+{ "Item": "Wine - Chateau Timberlay" },
+{ "Item": "Bag - Bread, White, Plain" },
+{ "Item": "Wine - Zonnebloem Pinotage" },
+{ "Item": "Wine - Red, Gallo, Merlot" },
+{ "Item": "Cheese - Ermite Bleu" },
+{ "Item": "Almonds Ground Blanched" },
+{ "Item": "Wine - Chardonnay South" },
+{ "Item": "Turkey - Breast, Bone - In" },
+{ "Item": "Monkfish Fresh - Skin Off" },
+{ "Item": "Sour Puss Sour Apple" },
+{ "Item": "Banana - Green" },
+{ "Item": "Beans - Green" },
+{ "Item": "Veal - Insides, Grains" },
+{ "Item": "Wasabi Paste" },
+{ "Item": "Pineapple - Golden" },
+{ "Item": "Loaf Pan - 2 Lb, Foil" },
+{ "Item": "Alize Gold Passion" },
+{ "Item": "Mushroom - Enoki, Dry" },
+{ "Item": "Longan" },
+{ "Item": "Soup - Campbells Asian Noodle" },
+{ "Item": "Sauce - Plum" },
+{ "Item": "Chicken - White Meat With Tender" },
+{ "Item": "Goat - Whole Cut" },
+{ "Item": "Salmon - Whole, 4 - 6 Pounds" },
+{ "Item": "Bread - Italian Roll With Herbs" },
+{ "Item": "Kellogs Raisan Bran Bars" },
+{ "Item": "Sproutsmustard Cress" },
+{ "Item": "Quail - Eggs, Fresh" },
+{ "Item": "Pasta - Lasagna Noodle, Frozen" },
+{ "Item": "Bread - White Mini Epi" },
+{ "Item": "Flax Seed" },
+{ "Item": "Foam Cup 6 Oz" },
+{ "Item": "Coffee Cup 12oz 5342cd" },
+{ "Item": "Jello - Assorted" },
+{ "Item": "Gingerale - Schweppes, 355 Ml" },
+{ "Item": "Soup - French Onion, Dry" },
+{ "Item": "Cheese - Goat" },
+{ "Item": "Soup - Knorr, Veg / Beef" },
+{ "Item": "Cups 10oz Trans" },
+{ "Item": "Truffle Cups - Brown" },
+{ "Item": "Ice Cream Bar - Rolo Cone" },
+{ "Item": "Sobe - Tropical Energy" },
+{ "Item": "Cake Sheet Combo Party Pack" },
+{ "Item": "Tomato Paste" },
+{ "Item": "Salmon - Atlantic, Fresh, Whole" },
+{ "Item": "Pur Value" },
+{ "Item": "Flour - Pastry" },
+{ "Item": "Longos - Chicken Cordon Bleu" },
+{ "Item": "Cheese - Oka" },
+{ "Item": "Wine - Fontanafredda Barolo" },
+{ "Item": "Wine - Vouvray Cuvee Domaine" },
+{ "Item": "Bagel - Sesame Seed Presliced" },
+{ "Item": "Crush - Cream Soda" },
+{ "Item": "Wine - Red, Metus Rose" },
+{ "Item": "Brownies - Two Bite, Chocolate" },
+{ "Item": "Muffin - Mix - Mango Sour Cherry" }]
 
-app.get(`/profilepage`, (req, res) => {
+app.get(`/`, (req, res) => {
+    res.redirect(`/home`);
+});
+
+app.get(`/home`, (req, res) => {
+    res.render(`home`);
+});
+
+
+app.get(`/profile`, (req, res) => {
     let { dog, cat } = req.params;
-    res.render(`demo3`, { dog, cat });
+    res.render(`profile`, { dog, cat });
 });
 
-
-app.get(`/demo`, (req, res) => {
-    let animals = [`Giraffe`, `Zebra`, `Coyote`];
-    res.render(`demo`, { data1: animals });
-});
-
-app.get(`/demo2`, (req, res) => {
-    let animals = [
-        {
-            breed: 'dog',
-            name: 'Spike'
-        },
-        {
-            breed: 'cat',
-            name: 'Mr Tabby'
-        },
-        {
-            breed: 'bird',
-            name: 'Tweety'
-        }
-    ]
+app.get(`/users`, (req, res) => {
     // Generate random inventory for each user
-    let min = 0; let max = 10;
-    let randomNum = ((min, max) => Math.random() * (max - min) + min)(); // IIFE generates random number between the range on the spot
+    const createRandomInventory = () => {
+        let min = 0; let max = 5;
+        let resultArr = [];
 
-    res.render(`demo2`, { userData: usersArr });
+        for (let i = 0; i < usersArr.length; i++) {
+            let newInvArr = []; // Each inventory array is it's own list element of the parent array
+            let invAmt = (() => Math.floor(Math.random() * (max - min) + min))(); // This IIFE produces a random integer
+
+            // Pick random items from the items array
+            for (let j = 0; j < invAmt; j++) {
+                // Insert x amount of random items into array
+                let randomItemId = (() => Math.floor(Math.random() * (itemsArr.length - 0) + 0))();
+                newInvArr.push(itemsArr[randomItemId]);
+            }
+            resultArr.push(newInvArr);
+        }
+        return resultArr;
+    }
+
+    res.render(`users`, { userData: usersArr, userInventory: createRandomInventory() });
 });
 
 app.get(`/:dog/:cat`, (req, res) => {
@@ -81,6 +172,15 @@ app.get(`/:dog/:cat`, (req, res) => {
     res.render(`demo3`, { dog, cat }); // Shorthand: only if both key and value are the same name
 });
 
+// app.get(`/:animals`, (req, res) => {
+//     // let data = req.params.animals;
+//     res.render(`animals`, { animals: req.params.animals });
+// });
+
+// app.get(`/demo`, (req, res) => {
+//     let animals = [`Giraffe`, `Zebra`, `Coyote`];
+//     res.render(`demo`, { data1: animals });
+// });
 
 app.get(`*`, (req, res) => {
     res.send(`404 error, page not found!`);
