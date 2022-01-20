@@ -1,0 +1,33 @@
+<%- include("partials/header.ejs", {title: ` - Home`, body_id: `home`, nav_bg: `dark`} )%>
+    <h1>Users page</h1>
+    <a href="/home">Home</a>
+    <a href="/profile">Profile</a>
+
+    <h2>Users List:</h2>
+    <ul>
+        <% userData.forEach((user, i)=> { %>
+            <li>
+                <b>User ID:
+                    <%= user.id %>
+                </b>
+                <ul><b>User info:</b>
+                    <li>Username: <%= user.user_name %>
+                    </li>
+                    <li>Full name: <%= user.first_name %>
+                            <%= user.last_name %>
+                    </li>
+                    <li>Email: <%= user.email %>
+                    </li>
+                </ul>
+                <ol><b>Inventory (<%=userInventory[i].length%>):</b>
+                    <% for( let j=0; j < userInventory[i].length; j++ ) { %>
+
+                        <li>
+                            <%=userInventory[i][j].Item %>
+                        </li>
+                        <% } %>
+                </ol>
+            </li>
+            <% }) %>
+    </ul>
+    <%- include("partials/footer.ejs")%>

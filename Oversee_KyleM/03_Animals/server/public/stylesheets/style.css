@@ -1,0 +1,66 @@
+* {
+  margin: 0;
+  padding: 0;
+  border: none;
+  box-sizing: border-box;
+  /* font-family: 'Henny Penny', cursive; */
+}
+.navbar-brand {
+  width: 1.75em;
+}
+.navbar-brand img {
+  width: 100%;
+}
+#home {
+  /* background: linear-gradient(to bottom right, #84ee7b, #d40fe2); */
+    background: linear-gradient(to bottom right, #9d9d9d,#242424);
+}
+#home .img_container {
+  /* box-shadow: 2px 2px 5px white, 3px 3px 10px black; */
+  /* box-shadow: 2px 2px 5px #a278a5, 3px 3px 5px #8f7a00; */
+  box-shadow:  2px 2px 3px black, -2px 3px 2px white, 3px 3px 5px #a278a5;
+}
+#home .img_container img {
+  width: 100%;
+  height: 50vh;
+}
+#home h1, 
+#home h2 {
+  text-shadow: 1px 1px 3px black, 2px 2px 3px black;
+  font-size: 3em;
+  font-weight: bold;
+  /* color: #a278a5; */
+  color: #82e0ed;
+}
+#home a {
+  text-decoration: none;
+}
+#home a h2:hover {
+  text-shadow: 1px 1px 3px black, 2px 2px 6px  black;
+  color: #f5f50b;
+}
+#about {
+  /* background: linear-gradient(to bottom right, #d40fe2, #84ee7b); */
+  background: linear-gradient(to bottom right, #434343, #f0f0f0);
+}
+#about h1,
+#about h2 {
+  text-shadow: 1px 1px 3px black, 2px 2px 3px black;
+  font-size: 3em;
+  font-weight: bold;
+  color: #17fa02;
+}
+#home h2,
+#about h2 {
+  font-size: 2em;
+}
+#about .me-text {
+  box-shadow: 2px 2px 5px black;
+  height: 60vh;
+  overflow: auto;
+}
+#avatar {
+  width: 75%;
+  border-radius: 50%;
+  border: 15px ridge #1af705ac;
+}

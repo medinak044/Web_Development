@@ -1,5 +1,6 @@
 const express = require(`express`);
 const app = express();
+const $fetch = require(`node-fetch`); // "$fetch"(node-fetch) indicates backend version of "fetch"
 const logger = require(`morgan`);
 app.use(logger(`dev`));
 
@@ -151,7 +152,6 @@ app.get(`/home`, (req, res) => {
     res.render(`home`);
 });
 
-
 app.get(`/profile`, (req, res) => {
     res.render(`profile`, {});
 });
@@ -183,21 +183,6 @@ app.get(`/users`, (req, res) => {
     res.render(`users`, { userData: usersArr, userInventory: createRandomInventory(usersArr, itemsArr) });
 });
 
-app.get(`/:dog/:cat`, (req, res) => {
-    let { dog, cat } = req.params;
-    // res.render(`demo3`, { dog: dog, cat: cat }); // {key: value}
-    res.render(`demo3`, { dog, cat }); // Shorthand: only if both key and value are the same name
-});
-
-// app.get(`/:animals`, (req, res) => {
-//     // let data = req.params.animals;
-//     res.render(`animals`, { animals: req.params.animals });
-// });
-
-// app.get(`/demo`, (req, res) => {
-//     let animals = [`Giraffe`, `Zebra`, `Coyote`];
-//     res.render(`demo`, { data1: animals });
-// });
 
 app.get(`*`, (req, res) => {
     res.send(`404 error, page not found!`);
@@ -211,3 +196,47 @@ app.get(`*`, (req, res) => {
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`App running on port ${port}`));
+
+// app.get(`/:dog/:cat`, (req, res) => {
+//     let { dog, cat } = req.params;
+//     // res.render(`demo3`, { dog: dog, cat: cat }); // {key: value}
+//     res.render(`demo3`, { dog, cat }); // Shorthand: only if both key and value are the same name
+// });
+
+// app.get(`/:animals`, (req, res) => {
+//     // let data = req.params.animals;
+//     res.render(`animals`, { animals: req.params.animals });
+// });
+
+// app.get(`/demo`, (req, res) => {
+//     let animals = [`Giraffe`, `Zebra`, `Coyote`];
+//     res.render(`demo`, { data1: animals });
+// });
+
+
+// app.get(`/users`, (req, res) => {
+//     // Generate random inventory for each user
+//     const usersArr = fakeUsersArr;
+//     const itemsArr = fakeItemsArr;
+
+//     const createRandomInventory = (uArr, iArr) => {
+//         let min = 0; let max = 5;
+//         let resultArr = [];
+
+//         for (let i = 0; i < uArr.length; i++) {
+//             let newInvArr = []; // Each inventory array is it's own list element of the parent array
+//             let invAmt = (() => Math.floor(Math.random() * (max - min) + min))(); // This IIFE produces a random integer
+
+//             // Pick random items from the items array
+//             for (let j = 0; j < invAmt; j++) {
+//                 // Insert x amount of random items into array
+//                 let randomItemId = (() => Math.floor(Math.random() * (iArr.length - 0) + 0))();
+//                 newInvArr.push(iArr[randomItemId]);
+//             }
+//             resultArr.push(newInvArr);
+//         }
+//         return resultArr;
+//     }
+
+//     res.render(`users`, { userData: usersArr, userInventory: createRandomInventory(usersArr, itemsArr) });
+// });
