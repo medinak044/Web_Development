@@ -1,0 +1,40 @@
+<h1>Welcome to your items list</h1>
+
+<a href="/logout">Log out</a>
+
+<h2>Create New Item</h2>
+<form action="/signup" method="post">
+    <input type="text" name="username" placeholder="enter which user it belongs to">
+    <input type="text" name="itemname" placeholder="enter item name">
+    <button type="submit">Submit</button>
+</form>
+
+<h2>Item Inventory</h2>
+
+<h2>Users List:</h2>
+<ul>
+    <% userData.forEach((user, i)=> { %>
+        <li>
+            <b>User ID:
+                <%= user.id %>
+            </b>
+            <ul><b>User info:</b>
+                <li>Username: <%= user.user_name %>
+                </li>
+                <li>Full name: <%= user.first_name %>
+                        <%= user.last_name %>
+                </li>
+                <li>Email: <%= user.email %>
+                </li>
+            </ul>
+            <ol><b>Inventory (<%=userInventory[i].length%>):</b>
+                <% for( let j=0; j < userInventory[i].length; j++ ) { %>
+
+                    <li>
+                        <%=userInventory[i][j].Item %>
+                    </li>
+                    <% } %>
+            </ol>
+        </li>
+        <% }) %>
+</ul>
