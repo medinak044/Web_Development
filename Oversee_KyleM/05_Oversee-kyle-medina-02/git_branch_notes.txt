@@ -1,0 +1,18 @@
+git branch
+    - Checks available branches
+git branch -c (new branch name)
+    - Creates new branch
+git checkout (branch name)
+    - Switches to existing branch
+git push origin head
+    - I think this pushes to what branch you are currently on (git checkout (branch name))
+
+
+* Assuming the main branch hasn't changed yet, here's how to merge to main branch in terminal:
+- Must first be on the main branch (git checkout main)
+git merge (branch name)
+
+
+* There is the local branch, and the remote branch. Here's how to delete both types of branches:
+git branch -d <local-branch>
+git push origin --delete <remote-branch-name>

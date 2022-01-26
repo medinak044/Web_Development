@@ -1,0 +1,17 @@
+<h1>Welcome to your items list</h1>
+
+<a href="/logout">Log out</a>
+<h2>Add New Item</h2>
+<form action="/items" method="post">
+    <input type="text" name="itemname" placeholder="enter item name">
+    <button type="submit">Submit</button>
+</form>
+
+<h2>Item Inventory <b>(<%=userInventory.length%>):</b></h2>
+<ol>
+    <% for( let i=0; i < userInventory.length; i++ ) { %>
+        <li>
+            <%=userInventory[i].name %>
+        </li>
+        <% } %>
+</ol>
