@@ -50,4 +50,56 @@ const findTotalPopulation = (arr) => {
     return population;
 };
 
-console.log(findTotalPopulation(cities));
+// console.log(findTotalPopulation(cities));
+
+// -----------------------------------------------
+// Comparing work to find where to improve:
+
+// function removeDuplicatesandSum(array) {
+//     // Part 2: Austin is listed twice, write some logic so that any duplicate city is not added into the total population twice.
+//     let keysArr = [];
+//     let valsArr = [];
+//     for (let i = 0; i < cities.length; i++) {
+//         keysArr.push(Object.keys(cities[i]).join(""))
+//         valsArr.push(Object.values(cities[i]).join(""))
+//     }
+//     //find any duplicates and delete them from values array.
+//     for (let i = 0; i < keysArr.length; i++) {
+//         while (keysArr.lastIndexOf(keysArr[i]) !== i) {
+//             keysArr.splice(keysArr.lastIndexOf(keysArr[i]), 1)
+//             valsArr.splice(keysArr.lastIndexOf(keysArr[i]), 1)
+//             cities.splice(cities.lastIndexOf(keysArr[i]), 1)
+//         }
+//     }
+//     // console.log(cities, keysArr, valsArr)
+//     let total = 0;
+//     for (let i = 0; i < valsArr.length; i++) {
+//         total += Number(valsArr[i])
+//     }
+//     return total;
+// }
+
+function removeDuplicatesandSum(array) {
+    // Part 2: Austin is listed twice, write some logic so that any duplicate city is not added into the total population twice.
+    let keysArr = [];
+    let valsArr = [];
+    for (let i = 0; i < array.length; i++) {
+        keysArr.push(Object.keys(array[i]).join(""))
+        valsArr.push(Object.values(array[i]).join(""))
+    }
+    //find any duplicates and delete them from values array.
+    for (let i = 0; i < keysArr.length; i++) {
+        while (keysArr.lastIndexOf(keysArr[i]) !== i) {
+            keysArr.splice(keysArr.lastIndexOf(keysArr[i]), 1)
+            valsArr.splice(keysArr.lastIndexOf(keysArr[i]), 1)
+            array.splice(array.lastIndexOf(keysArr[i]), 1)
+        }
+    }
+    // console.log(cities, keysArr, valsArr)
+    let total = 0;
+    for (let i = 0; i < valsArr.length; i++) {
+        total += Number(valsArr[i])
+    }
+    return total;
+}
+console.log(removeDuplicatesandSum(cities))
