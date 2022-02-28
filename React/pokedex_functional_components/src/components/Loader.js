@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function Pokemon({ pokemon }) {
+const Loader = () => {
     return (
         <div>
-            {pokemon.name}
+            Fetching Pokemon...
         </div>
     )
 }
+
+export default Loader
