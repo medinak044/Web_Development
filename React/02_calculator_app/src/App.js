@@ -1,23 +1,114 @@
-import logo from './logo.svg';
+import { useReducer } from 'react'
+import DigitButton from './components/DigitButton';
+import OperationButton from './components/OperationButton';
 import './App.css';
 
+// https://www.youtube.com/watch?v=DgRrrOt0Vr8 @24:46
+export const ACTIONS = {
+  ADD_DIGIT: 'add-digit',
+  CHOOSE_OPERATION: 'choose-operation',
+  CLEAR: `clear`,
+  DELETE_DIGIT: `delete-digit`,
+  EVALUATE: `evaluate`
+}
+
 function App() {
+  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
+    reducer,
+    {}
+  )
+
+  function reducer(state, { type, payload }) {
+    switch (type) {
+      case ACTIONS.ADD_DIGIT:
+        if (payload.digit === `0` && state.currentOperand === `0`) return state // If "0" is entered, won't redundantly add more "0"
+        if (payload.digit === `.` && state.currentOperand.includes(`.`)) return state // If "0" is entered, won't redundantly add more "."
+
+        return {
+          ...state,
+          currentOperand: `${currentOperand || ""}${payload.digit}`
+        }
+
+      case ACTIONS.CHOOSE_OPERATION:
+        if (state.currentOperand == null && state.previousOperand == null) {
+          return state
+        }
+
+        if (state.currentOperand == null) {
+          return {
+            ...state,
+            operation: payload.operation
+          }
+        }
+
+        if (state.previousOperand == null) {
+          return {
+            ...state,
+            operation: payload.operation,
+            previousOperand: state.currentOperand,
+            currentOperand: null
+          }
+        }
+
+        return {
+          ...state,
+          previousOperand: evaluate(state),
+          operation: payload.operation,
+          currentOperand: null
+        }
+      case ACTIONS.CLEAR:
+        return {} // Clears state contents
+
+    }
+  }
+
+  function evaluate({ currentOperand, previousOperand, operation }) {
+    const prev = parseFloat(previousOperand)
+    const current = parseFloat(currentOperand)
+    // if (isNan(prev) || isNaN(current)) return `` // Makes sure actual numbers are used
+    let computation = ``
+    switch (operation) {
+      case `+`:
+        computation = prev + current
+        break
+      case `-`:
+        computation = prev - current
+        break
+      case `*`:
+        computation = prev * current
+        break
+      case `÷`:
+        computation = prev / current
+        break
+    }
+
+    return computation.toString()
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className='calculator-grid'>
+      <div className='output'>
+        <div className="previous-operand">{previousOperand} {operation}</div>
+        <div className="current-operand">{currentOperand}</div>
+      </div>
+      <button className="span-two" onClick={() => dispatch({ type: ACTIONS.CLEAR })}>AC</button>
+      <button>DEL</button>
+      <OperationButton operation="÷" dispatch={dispatch} />
+      <DigitButton digit="1" dispatch={dispatch} />
+      <DigitButton digit="2" dispatch={dispatch} />
+      <DigitButton digit="3" dispatch={dispatch} />
+      <OperationButton operation="*" dispatch={dispatch} />
+      <DigitButton digit="4" dispatch={dispatch} />
+      <DigitButton digit="5" dispatch={dispatch} />
+      <DigitButton digit="6" dispatch={dispatch} />
+      <OperationButton operation="+" dispatch={dispatch} />
+      <DigitButton digit="7" dispatch={dispatch} />
+      <DigitButton digit="8" dispatch={dispatch} />
+      <DigitButton digit="9" dispatch={dispatch} />
+      <OperationButton operation="-" dispatch={dispatch} />
+      <DigitButton digit="." dispatch={dispatch} />
+      <DigitButton digit="0" dispatch={dispatch} />
+      <button className="span-two">=</button>
     </div>
   );
 }
