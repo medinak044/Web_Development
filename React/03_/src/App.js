@@ -1,27 +1,64 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css';
 
+// import FlipNumber from './components/FlipNumber'
+
 function App() {
-  const [counter, setCounter] = useState(0)
+  const [trueCounter, setTrueCounter] = useState(0)
+  const [displayedCounter, setDisplayedCounter] = useState(0)
+
+  // Default value to 0 when page reloads
+  useEffect(() => {
+    setTrueCounter(0)
+  }, [])
 
   const handleClickIncrease = () => {
-    setCounter(counter + 1)
+    setTrueCounter(trueCounter + 1)
   }
 
   const handleClickDecrease = () => {
-    setCounter(counter - 1)
+    setTrueCounter(trueCounter - 1)
   }
 
   const handleReset = () => {
-    setCounter(0)
+    setTrueCounter(0)
+  }
+
+  let activateLoop = false;
+
+  const delayToGoal = () => {
+    activateLoop = false
+    activateLoop = true
+
+    if (displayedCounter < trueCounter) {
+      while (activateLoop && displayedCounter < trueCounter) {
+        setTimeout(() => {
+          setDisplayedCounter(displayedCounter + 1)
+        }, 100);
+      }
+      // Promise to set activateLoop back to false when while loop completes
+    } else if (displayedCounter > trueCounter) {
+      while (activateLoop && displayedCounter > trueCounter) {
+        setTimeout(() => {
+          setDisplayedCounter(displayedCounter - 1)
+        }, 100);
+      }
+    }
   }
 
   return (
     <div className='App'>
-      <h1>{counter}</h1>
-      <button onClick={handleClickIncrease}>+</button>
-      <button onClick={handleClickDecrease}>-</button>
-      <button onClick={handleReset}>Reset</button>
+      <div>
+        <h1>{`Ending Number: ${trueCounter}`}</h1>
+        <button onClick={handleClickIncrease}>+</button>
+        <button onClick={handleClickDecrease}>-</button>
+        <button onClick={handleReset}>Reset</button>
+      </div>
+
+      <div>
+        <h1>{displayedCounter}</h1>
+        <button onClick={delayToGoal}>Animate to ending number</button>
+      </div>
     </div>
   );
 }
