@@ -15,7 +15,7 @@ const Tag = () => {
         setGif(imageSrc)
     }
 
-    useEffect(() => { //22:21
+    useEffect(() => {
         fetchGif(tag)
     }, [])
 
