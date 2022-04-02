@@ -19,16 +19,14 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const response = await setText(await fetchRandomData())
-      console.log(`fafwaf${response}`)
     }
     fetchData()
   }, [])
 
   return (
-    <div className="">
-      {/* <p>{text}</p> */}
+    <>
       <pre>{text}</pre>
-    </div>
+    </>
   );
 }
 
