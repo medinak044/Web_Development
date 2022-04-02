@@ -4,45 +4,63 @@ import axios from 'axios'
 
 function App() {
   const [dataStr, setDataStr] = useState('')
-  const [dataObjArr, setDataObjArr] = useState([])
+  const [userObjArr, setUserObjArr] = useState([])
+  const [nextPage, setNextPage] = useState(1)
+
+  const baseUrl = 'https://randomuser.me/api'
 
   // Best practice: Set api logic in another component
-  const fetchRandomData = () => {
-    axios.get('https://randomuser.me/api')
-      .then(res => {
-        // console.log(res.data)
-        setDataObjArr(res.data.results)
-        setDataStr(JSON.stringify(res.data.results, null, 2))
-      })
-      .catch(err => { console.log(err) })
+  const fetchRandomData = async (pageNum) => {
+    try {
+      const res = await axios.get(`${baseUrl}?page=${pageNum}`)
+      return res
+    } catch (err) { console.log(err) }
+
+    // return axios.get(`${baseUrl}?page=${pageNum}`)
+    //   .then(res => res)
+    //   .catch(err => { console.log(err) })
+  }
+
+  const fetchNextUser = async () => {
+    const res = await fetchRandomData(nextPage)
+    if (!res) return
+    // setDataStr(JSON.stringify(res.data.results, null, 2))
+    setUserObjArr([...userObjArr, ...res.data.results])
+    setNextPage(nextPage + 1) // Reset page
   }
 
   // On page load
   useEffect(() => {
     async function fetchData() {
-      const response = await setDataStr(await fetchRandomData())
+      // Using default values to ensure only one user is displayed
+      const res = await fetchRandomData(nextPage)
+
+      // setDataStr(JSON.stringify(res.data.results, null, 2))
+      setUserObjArr([...res.data.results])
+      setNextPage(nextPage + 1) // Reset page
     }
     fetchData()
   }, [])
 
-  const displayFullUserName = (userObj) => {
+  const displayFullData = (userObj) => {
     return (
       <div key={userObj.id.value}>
         <h1>Name: {`${userObj.name.first} ${userObj.name.last}`}</h1>
         <img src={userObj.picture.large} alt="User profile picture" />
+        {/* <details>
+          <summary>JSON ({`${userObj.name.first} ${userObj.name.last}`})</summary>
+          <pre>{dataStr}</pre>
+        </details> */}
       </div>
     )
   }
 
   return (
     <>
-      {/* {dataObjArr ? <h1>Name: {`${dataObjArr.name.first} ${dataObjArr.name.last}`}</h1>
-        : null} */}
-      {dataObjArr.map(userObj => displayFullUserName(userObj))}
-      {/* <img src={dataObjArr.picture.large} alt="User profile picture" /> */}
-      <pre>{dataStr}</pre>
+      {userObjArr.map(userObj => displayFullData(userObj))}
+      <button onClick={fetchNextUser}>Load more users (X)</button>
     </>
-  );
+  )
 }
 
 export default App;
