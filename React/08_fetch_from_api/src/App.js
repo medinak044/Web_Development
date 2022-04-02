@@ -3,14 +3,16 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 
 function App() {
-  const [text, setText] = useState('')
+  const [dataStr, setDataStr] = useState('')
+  const [dataObjArr, setDataObjArr] = useState([])
 
   // Best practice: Set api logic in another component
   const fetchRandomData = () => {
     axios.get('https://randomuser.me/api')
       .then(res => {
-        console.log(res.data)
-        setText(JSON.stringify(res.data, null, 2))
+        // console.log(res.data)
+        setDataObjArr(res.data.results)
+        setDataStr(JSON.stringify(res.data.results, null, 2))
       })
       .catch(err => { console.log(err) })
   }
@@ -18,14 +20,27 @@ function App() {
   // On page load
   useEffect(() => {
     async function fetchData() {
-      const response = await setText(await fetchRandomData())
+      const response = await setDataStr(await fetchRandomData())
     }
     fetchData()
   }, [])
 
+  const displayFullUserName = (userObj) => {
+    return (
+      <div key={userObj.id.value}>
+        <h1>Name: {`${userObj.name.first} ${userObj.name.last}`}</h1>
+        <img src={userObj.picture.large} alt="User profile picture" />
+      </div>
+    )
+  }
+
   return (
     <>
-      <pre>{text}</pre>
+      {/* {dataObjArr ? <h1>Name: {`${dataObjArr.name.first} ${dataObjArr.name.last}`}</h1>
+        : null} */}
+      {dataObjArr.map(userObj => displayFullUserName(userObj))}
+      {/* <img src={dataObjArr.picture.large} alt="User profile picture" /> */}
+      <pre>{dataStr}</pre>
     </>
   );
 }
