@@ -6,6 +6,7 @@ function App() {
   const [dataStr, setDataStr] = useState('')
   const [userObjArr, setUserObjArr] = useState([])
   const [nextPage, setNextPage] = useState(1)
+  const [interval, setInterval] = useState(1)
 
   const baseUrl = 'https://randomuser.me/api'
 
@@ -22,10 +23,17 @@ function App() {
   }
 
   const fetchNextUser = async () => {
-    const res = await fetchRandomData(nextPage)
-    if (!res) return
+    let tempArr = []
+
+    for (let i = 0; i < interval; i++) {
+      const res = await fetchRandomData(nextPage)
+      tempArr.push(...res.data.results)
+    }
+
+    if (!tempArr) return // In case no more user data is found
+
     // setDataStr(JSON.stringify(res.data.results, null, 2))
-    setUserObjArr([...userObjArr, ...res.data.results])
+    setUserObjArr([...userObjArr, ...tempArr])
     setNextPage(nextPage + 1) // Reset page
   }
 
@@ -57,8 +65,9 @@ function App() {
 
   return (
     <>
+      <button onClick={fetchNextUser}>Load more users (+{interval})</button>
+      <button onClick={() => { setInterval(interval + 1) }}>Increase load interval</button>
       {userObjArr.map(userObj => displayFullData(userObj))}
-      <button onClick={fetchNextUser}>Load more users (X)</button>
     </>
   )
 }
