@@ -43,6 +43,7 @@ function App() {
       // Using default values to ensure only one user is displayed
       const res = await fetchRandomData(nextPage)
 
+      // console.log(res.data.results[0].id)
       // setDataStr(JSON.stringify(res.data.results, null, 2))
       setUserObjArr([...res.data.results])
       setNextPage(nextPage + 1) // Reset page
@@ -51,8 +52,9 @@ function App() {
   }, [])
 
   const displayFullData = (userObj) => {
+    // For some reason, cannot access the value of the database id
     return (
-      <div key={userObj.id.value}>
+      <div key={userObj.email}>
         <h1>Name: {`${userObj.name.first} ${userObj.name.last}`}</h1>
         <img src={userObj.picture.large} alt="User profile picture" />
         {/* <details>
@@ -63,11 +65,13 @@ function App() {
     )
   }
 
+  const userList = userObjArr.map((userObj) => displayFullData(userObj))
+
   return (
     <>
       <button onClick={fetchNextUser}>Load more users (+{interval})</button>
       <button onClick={() => { setInterval(interval + 1) }}>Increase load interval</button>
-      {userObjArr.map(userObj => displayFullData(userObj))}
+      {userList}
     </>
   )
 }
