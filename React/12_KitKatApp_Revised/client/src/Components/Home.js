@@ -5,9 +5,9 @@ import { Container, Row, Col } from "react-bootstrap";
 import { useState, useEffect } from "react"; //useEffect determines when certain data will appear
 
 const Home = () => {
-  const initialState = [{flavor: ""}];
+  const initialState = [{ flavor: "" }]
 
-  const [kitKats, setKitKats] = useState(initialState);
+  const [kitKats, setKitKats] = useState(initialState)
 
   // const handleChange = (event) => {
   //   setFormData({
@@ -18,20 +18,20 @@ const Home = () => {
 
   useEffect(() => {
     axios.get("http://localhost:8080/getFlavors")
-    .then(response => {
-        console.log(response.data)
+      .then(response => {
+        // console.log(response.data)
         setKitKats(response.data.message)
-    })
+      })
       .catch(error => console.log(`Error: ${error}`))
-  }, []);
+  }, [])
   //dependency array - if it's blank, it will run when function first mounts (initial page render)
   //if it has stuff in it, it will rerun any time the page updates/changes
 
-let displayKitKat = kitKats.map( element => {
-  return(
-    <CardComp data = {element}/> 
-  )
-})
+  const displayKitKat = kitKats.map(element => {
+    return (
+      <CardComp data={element} />
+    )
+  })
 
   return (
     <div>
@@ -53,13 +53,11 @@ let displayKitKat = kitKats.map( element => {
         </Row>
 
         <Row className="row3">
-
           {displayKitKat}
-
         </Row>
       </Container>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
