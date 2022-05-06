@@ -1,5 +1,7 @@
 Remember to use "gatsby-plugin-image" instead of "gatsby-image"(deprecated) in future projects
 
+Learn how to use Gatsby v3
+
 
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
