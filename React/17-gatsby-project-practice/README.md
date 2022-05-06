@@ -1,3 +1,6 @@
+Remember to use "gatsby-plugin-image" instead of "gatsby-image"(deprecated) in future projects
+
+
 <!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
 <p align="center">
   <a href="https://www.gatsbyjs.com">
